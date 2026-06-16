@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Notas FEPI</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #003366, #0056b3);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 550px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      text-align: center;
+      color: #003366;
+      margin-bottom: 8px;
+    }
+
+    .subtitulo {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    .grupo {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: #0056b3;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #003f85;
+    }
+
+    .resultado {
+      display: none;
+      margin-top: 25px;
+      background: #f5f8ff;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .resultado p {
+      margin: 12px 0;
+      font-size: 18px;
+      color: #222;
+    }
+
+    .status {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .aprovado {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .exame {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .reprovado {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .footer {
+      text-align: center;
+      color: #777;
+      font-size: 13px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>Calculadora de Notas FEPI</h1>
+
+    <p class="subtitulo">
+      FEPI – Centro Universitário de Itajubá<br>
+      Desenvolvido por Wedson Faria
+    </p>
+
+    <div class="grupo">
+      <label for="b1">Nota do 1º Bimestre</label>
+      <input type="number" id="b1" min="0" max="100" step="0.1" placeholder="Digite a nota">
+    </div>
+
+    <div class="grupo">
+      <label for="b2">Nota do 2º Bimestre</label>
+      <input type="number" id="b2" min="0" max="100" step="0.1" placeholder="Digite a nota">
+    </div>
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div class="resultado" id="resultado">
+      <p><strong>Média Semestral (MS):</strong> <span id="ms"></span></p>
+
+      <p id="campoEf" style="display:none;">
+        <strong>Nota mínima no Exame Final:</strong>
+        <span id="ef"></span>
+      </p>
+
+      <div id="status" class="status"></div>
+    </div>
+  </div>
+
+  <script>
+    function calcular() {
+      const b1 = parseFloat(document.getElementById('b1').value);
+      const b2 = parseFloat(document.getElementById('b2').value);
+
+      if (isNaN(b1) || isNaN(b2)) {
+        alert('Preencha as duas notas.');
+        return;
+      }
+
+      const ms = ((b1 * 2) + (b2 * 3)) / 5;
+
+      document.getElementById('ms').textContent = ms.toFixed(1);
+
+      const resultado = document.getElementById('resultado');
+      const status = document.getElementById('status');
+      const campoEf = document.getElementById('campoEf');
+
+      if (ms >= 70) {
+        campoEf.style.display = 'none';
+
+        status.className = 'status aprovado';
+        status.textContent = '🎉 Aprovado sem exame final!';
+      } else {
+        const ef = (250 - (ms * 3)) / 2;
+
+        campoEf.style.display = 'block';
+        document.getElementById('ef').textContent =
+          ef.toFixed(1);
+
+        status.className = 'status exame';
+        status.textContent =
+          '📚 Você precisa fazer o exame final.';
+      }
+
+      resultado.style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
