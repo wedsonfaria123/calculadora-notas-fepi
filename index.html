@@ -183,7 +183,15 @@
 
         status.className = 'status aprovado';
         status.textContent = '🎉 Aprovado sem exame final!';
-      } else {
+        
+      } 
+      if (ms <35){
+      campoEf.style.display = 'none';
+
+        status.className = 'status Reprovado';
+        status.textContent = 'REPROVADO!';
+      } 
+      else {
         const ef = (250 - (ms * 3)) / 2;
 
         campoEf.style.display = 'block';
