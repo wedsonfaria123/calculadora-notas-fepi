@@ -178,26 +178,27 @@
       const status = document.getElementById('status');
       const campoEf = document.getElementById('campoEf');
 
-     if (ms >= 70) {
+    if (msArredondada >= 70) {
     campoEf.style.display = 'none';
 
     status.className = 'status aprovado';
     status.textContent = '🎉 Aprovado sem exame final!';
 
-} else if (ms < 35) {
+} else if (msArredondada < 35) {
     campoEf.style.display = 'none';
 
     status.className = 'status reprovado';
     status.textContent = '❌ REPROVADO!';
 
 } else {
-    const ef = (250 - (ms * 3)) / 2;
+    const ef = (250 - (msArredondada * 3)) / 2;
 
     campoEf.style.display = 'block';
     document.getElementById('ef').textContent = ef.toFixed(1);
 
     status.className = 'status exame';
     status.textContent = '📚 Você precisa fazer o exame final.';
+
 }
 
       resultado.style.display = 'block';
