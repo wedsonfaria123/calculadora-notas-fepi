@@ -178,7 +178,9 @@
       const status = document.getElementById('status');
       const campoEf = document.getElementById('campoEf');
 
-    if (msArredondada >= 70) {
+   const msArredondada = Math.round(ms);
+
+if (msArredondada >= 70) {
     campoEf.style.display = 'none';
 
     status.className = 'status aprovado';
@@ -198,7 +200,6 @@
 
     status.className = 'status exame';
     status.textContent = '📚 Você precisa fazer o exame final.';
-
 }
 
       resultado.style.display = 'block';
